@@ -4,10 +4,11 @@ export default class Cliente {
     #nome: string;
     #idade: number;
 
-    constructor(nome: string, idade: number, id: string = null){
-        this.#nome = nome;
-        this.#idade = idade;
-        this.#id = id;
+    
+    constructor(nome: string, idade: number, id: string = null) {
+        this.#nome = nome
+        this.#idade = idade
+        this.#id = id
     }
     //retornando um cliente vazio
     static vazio(){

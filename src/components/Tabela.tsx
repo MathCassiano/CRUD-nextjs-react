@@ -1,5 +1,5 @@
-import Cliente from "@/core/Cliente";
-import { table } from "console";
+'use client'
+import Cliente from "../core/Cliente";
 import { IconeEdicao, IconeLixo } from "./icones";
 
 //dizendo o que eu esperor receber nessa tabela
@@ -12,6 +12,9 @@ interface TabelaProps{
 
 
 export default function Tabela(props: TabelaProps){
+
+    
+    const exibirAcoes = props.clienteExcluido || props.clienteSelecionado
     
     function renderizarCabecalho(){
         return (
@@ -19,7 +22,8 @@ export default function Tabela(props: TabelaProps){
             <th className="text-left p-4">Código</th>
             <th className="text-left p-4">Nome</th>
             <th className="text-left p-4">Idade</th>
-            <th className="p-4">Ações</th>
+            
+            {exibirAcoes ? <th className="p-4">Ações</th> : false}
         </tr>
         )
     }
@@ -32,30 +36,43 @@ export default function Tabela(props: TabelaProps){
                 <td  className="text-left p-4">{cliente.id}</td>
                 <td  className="text-left p-4">{cliente.idade}</td>
                 <td  className="text-left p-4">{cliente.nome}</td>
-                {renderizarAcoes(cliente)}
+                {exibirAcoes ? renderizarAcoes(cliente) : false}
             </tr>
             )
         })
     }
     
+    'user client';
     //vou ter que receber um cliente aqui pois vou precisar escolher um cliente específico para realizar a ação
     function renderizarAcoes(cliente: Cliente){
+        
         return (
-            <td className="flex">
-                <button className={`
+            
+            <td className="flex justify-center">
+                {/* renderizando o botão apenas se a função houver sido fornecida */}
+                {props.clienteSelecionado ? (
+                    // se o usuário clicar no botão, chama a função de cliente selecionado passando o cliente
+                 <button onClick={() => props.clienteSelecionado?.(cliente)}  className={`
                     flex justify-center items-center
                     text-green-600 rounded-full p-2  m-1
                     hover:bg-purple-50
                 `}>
                     {IconeEdicao}
                 </button>
-                <button className={`
+                ) : false}
+
+                
+                {props.clienteExcluido ? (
+                    // só  vai chamar passando o cliente se props.clienteSelecionado for diferente de  nulo
+                    
+                    <button onClick={() => props.clienteExcluido?.(cliente)} className={`
                     flex justify-center items-center
                     text-red-600 rounded-full p-2  m-1
                     hover:bg-purple-50
                 `}>
                     {IconeLixo}
                 </button>
+                ): false}
             </td>
         )
     }
