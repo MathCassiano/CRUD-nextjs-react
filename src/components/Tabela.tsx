@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import Cliente from "../core/Cliente";
 import { IconeEdicao, IconeLixo } from "./icones";
 
@@ -6,8 +6,8 @@ import { IconeEdicao, IconeLixo } from "./icones";
 interface TabelaProps{
     clientes: Cliente[];
     //quando clicar no cliente, vai devolver o cliente selecionad
-    clienteSelecionado?:(cliente: Cliente) => void
-    clienteExcluido?:(cliente: Cliente) => void
+    clienteSelecionado?: (cliente: Cliente) => void
+    clienteExcluido?: (cliente: Cliente) => void
 }
 
 
@@ -19,10 +19,9 @@ export default function Tabela(props: TabelaProps){
     function renderizarCabecalho(){
         return (
             <tr>
-            <th className="text-left p-4">Código</th>
-            <th className="text-left p-4">Nome</th>
-            <th className="text-left p-4">Idade</th>
-            
+                <th className="text-left p-4">Código</th>
+                <th className="text-left p-4">Nome</th>
+                <th className="text-left p-4">Idade</th>
             {exibirAcoes ? <th className="p-4">Ações</th> : false}
         </tr>
         )
@@ -32,7 +31,7 @@ export default function Tabela(props: TabelaProps){
         return props.clientes?.map((cliente, i) =>{
             return(
             <tr key={`cliente.id`}
-            className={`${i%2 === 0 ? 'bg-purple-200' : 'bg-purple-100' }`} >
+                className={`${i%2 === 0 ? 'bg-purple-200' : 'bg-purple-100' }`} >
                 <td  className="text-left p-4">{cliente.id}</td>
                 <td  className="text-left p-4">{cliente.idade}</td>
                 <td  className="text-left p-4">{cliente.nome}</td>
@@ -42,7 +41,6 @@ export default function Tabela(props: TabelaProps){
         })
     }
     
-    'user client';
     //vou ter que receber um cliente aqui pois vou precisar escolher um cliente específico para realizar a ação
     function renderizarAcoes(cliente: Cliente){
         
@@ -64,15 +62,14 @@ export default function Tabela(props: TabelaProps){
                 
                 {props.clienteExcluido ? (
                     // só  vai chamar passando o cliente se props.clienteSelecionado for diferente de  nulo
-                    
-                    <button onClick={() => props.clienteExcluido?.(cliente)} className={`
+              <button onClick={() => props.clienteExcluido?.(cliente)} className={`
                     flex justify-center items-center
                     text-red-600 rounded-full p-2  m-1
                     hover:bg-purple-50
                 `}>
                     {IconeLixo}
                 </button>
-                ): false}
+            ) : false}
             </td>
         )
     }
@@ -82,7 +79,7 @@ export default function Tabela(props: TabelaProps){
             text-gray-300
             bg-gradient-to-r from-purple-500 to bg-purple-800
             `}>
-            {renderizarCabecalho()}
+                {renderizarCabecalho()}
             </thead>
             <tbody>
                  {renderizarDados()}
